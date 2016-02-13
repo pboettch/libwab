@@ -1,0 +1,118 @@
+INTRODUCTION
+------------
+
+	Windows includes a system to store email addresses and other contact
+	information known as the Windows Address Book (wab).  This is used by
+	Outlook Express.
+
+	Libwab turns windows address book (wab) files into ldif files.  ldif
+	files are a nice plain-text format that can easily be comprehended and
+	manipulated by humans.  ldif can also be imported into and exported
+	from any email software that isn't complete garbage.
+
+	BUT...I have never tried to load the output with anything.  If you have
+	success then send me an email and let me know. 
+
+	You can, using heuristic mode (see below), retrieve deleted records
+	from a .wab file.  You can also (maybe) retrieve records from a
+	damanged .wab file.
+
+	Anyhow - there's no man page, no configure and --help will probably lie
+	to you.
+
+BUILDING
+--------
+
+	Run 'make'
+
+USING
+-----
+
+	Wabread will excrete output to stdout.  So you'll want to do something
+	like this:
+
+	$ ./wabread mywabfile.wab >mywabdata.ldif
+
+	For more information run wabread with nothing on the command line.
+
+	$ ./wabread
+
+	Use:  wabread [options] <filename.wab>
+
+	  Options:
+	   -d #        set debugging (logical or 1,2,3,4...)
+	   -h          heuristic record dump: attempt to
+			 recover a broken .wab file
+	   -c          display extra crud.
+
+
+HEURISTIC MODE
+--------------
+
+	Normally libwab will try to read some indexes at the start of the wab
+	file.  It will then print the records that are listed in this index.
+
+	If a record is deleted from the index then libwab will not, by default,
+	print it.  Also if the index is damaged then libwab will probably crash
+	while reading the file.
+
+	If you have a damanged .wab file or your have deleted addresses then
+	you can use heuristic mode.
+
+	Heuristic mode will search through the entire file searching for things
+	that look like wab records.  It will output what it finds.  This will
+	include deleted records which have not been overwritten.
+
+	To use this mode pass wabread an '-h' like this:
+
+	$ ./wabread -h mywabfile.wab >mywabdata.ldif
+
+IF HEURISTIC MODE FAILS
+-----------------------
+
+	If libwab does not return the data you are looking for in heuristic
+	mode then there is one more thing you can do.  You'll need a unix
+	environment for this.  If you are silly enough to be running windows
+	then you can get a decent unix environment from either Cygwin or the
+	Native Windows Ports of Unix Utilities.  Look here:
+
+		http://www.cygwin.com/
+		http://unxutils.sourceforge.net/
+
+	Or use google.
+
+	Once you have a little unix environment then do this:
+
+		cat YourWabFile.wab |tr -d '\000'|strings|less
+
+	This will puke all of the printable strings in your .wab file.  If your
+	data are not in the output of this command then they are probably gone.
+	The only thing you can try beyond this is a hex editor...but it's very
+	unlikely that you'll find anything good.
+
+
+MISC HISTORY NOISE
+------------------
+
+I wrote this program a while ago in order to automate the conversion of outlook
+express .wab files to Thunderbird format files.  When I was writing this pile
+of crap I didn't realize that Thunderbird stores mail in "mork" format.
+
+Dealing with Mork turned out to be WORSE THAN REVERSE-ENGINEERING THE BINARY
+.WAB FILE FORMAT.
+
+Update: I have mostly given up on dealing with Microsoft systems.  They really
+aren't worth the time.  I will try to continue to maintain the software as
+people send me patches and bitch at me.  However I make no promises.
+
+Enjoy!
+
+
+Sean Loaring
+
+email (I'm sure you can figure it out):
+  sloaring      is my name
+  AT            is the text version of an ampersand
+  tec-man       is my email domain
+  dawt          is a misspelling of dot
+  com           is the end
