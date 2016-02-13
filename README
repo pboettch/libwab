@@ -1,3 +1,17 @@
+PREFACE
+-------
+
+	On 2016-02-13 I need a Windows Address Book export-tool in Linux. Unable
+	to find anything quickly I found traces of existance of this code on the web.
+
+	After some digging and more digging, google came up with a source-RPM which
+	contained this code.
+
+	I removed the configure-stuff and added a CMakeLists.txt . This and
+	publishing it on guthub is my contribution.
+
+	-Patrick Boettcher
+
 INTRODUCTION
 ------------
 
@@ -11,7 +25,7 @@ INTRODUCTION
 	from any email software that isn't complete garbage.
 
 	BUT...I have never tried to load the output with anything.  If you have
-	success then send me an email and let me know. 
+	success then send me an email and let me know.
 
 	You can, using heuristic mode (see below), retrieve deleted records
 	from a .wab file.  You can also (maybe) retrieve records from a
@@ -20,9 +34,12 @@ INTRODUCTION
 	Anyhow - there's no man page, no configure and --help will probably lie
 	to you.
 
+
 BUILDING
 --------
 
+	Create a build-dir somewhere
+	Run 'cmake <path-to-libwab>' in build dir
 	Run 'make'
 
 USING
