@@ -592,9 +592,9 @@ int vbuf_avail( vbuf *vb ) // {{{
 void vbuf_dump( vbuf *vb ) // {{{ TODO: to stdout?  Yuck
 {
 	printf("vb dump-------------\n");
-        printf("dlen: %d\n", vb->dlen );
-	printf("blen: %d\n", vb->blen );
-	printf("b - buf: %d\n", vb->b - vb->buf );
+    printf("dlen: %zd\n", vb->dlen );
+	printf("blen: %zd\n", vb->blen );
+	printf("b - buf: %zd\n", vb->b - vb->buf );
 	printf("buf:\n");
 	hexdump( vb->buf, 0, vb->blen, 1 );
 	printf("b:\n");

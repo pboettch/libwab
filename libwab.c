@@ -192,13 +192,13 @@ int read_idxrec( struct idxrecord *irec, FILE *fp ) // {{{
 // }}}
 int rread( void *buf, size_t size, FILE *fp ) // {{{
 {
-	DEBUG( DB_LOW_LEVEL, fprintf( stderr, "rread() reading %d(0x%x) bytes at 0x%lx\n", size, size, ftell( fp ) ););
+	DEBUG( DB_LOW_LEVEL, fprintf( stderr, "rread() reading %zd(0x%zx) bytes at 0x%lx\n", size, size, ftell( fp ) ););
 
 	size_t len;
 	long off1 = ftell( fp );
 
 	if( size != ( len = fread( buf, 1, size, fp ) ) ) {
-		fprintf( stderr, "ERROR: [%zd:%d:%d], Couldn't read %d bytes at %#lx, now at %#lx: %s\n",
+		fprintf( stderr, "ERROR: [%zd:%d:%d], Couldn't read %zd bytes at %#lx, now at %#lx: %s\n",
 			len, ferror( fp ), feof( fp ), size, off1, ftell( fp ), strerror( errno ) );
 
 		if( rread_crash ) exit( 1 );
