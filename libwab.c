@@ -3,7 +3,6 @@
 #include "tools.h"
 #include "uerr.h"
 #include "cencode.h"
-#include "config.h"
 
 #include <stdio.h>
 #include <stdlib.h>
